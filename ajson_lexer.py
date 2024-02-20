@@ -88,9 +88,27 @@ def t_NULO(t):
 #     t.value = int(t.value)
 #     return t
 
-def t_NUMERO(t):
-    ...
+entero = r"-?\d+"
+decimal = r"-?(\d+\.\d+)|(\.\d+)"
+cientifico = r"-?((\d+\.\d+)|(\.\d+)|(\d))[eE]-?\d+"
+binario = r"0(b|B)[01]+"
+octal = r"0[0-7]+"
+hexadecimal = r"0(x|X)[0-9a-fA-F]+"
+numero = r"|".join([ binario, hexadecimal, cientifico, decimal, entero, octal])
 
+@lex.TOKEN(numero)
+def t_NUMERO(t):
+    if t.value.startswith("0b") or t.value.startswith("0B"):
+        t.value = int(t.value, 2)
+    elif t.value.startswith("0x") or t.value.startswith("0X"):
+        t.value = int(t.value, 16)
+    elif t.value.startswith("0") and all(c in '01234567' for c in t.value[1:]):
+        t.value = int(t.value, 8)
+    elif "." in t.value or "e" in t.value or "E" in t.value:
+        t.value = float(t.value)
+    else:
+        t.value = int(t.value)
+    return t
 
 t_ignore = " \t"
 
