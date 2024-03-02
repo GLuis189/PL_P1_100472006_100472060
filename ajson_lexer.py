@@ -1,31 +1,34 @@
 # module: ajson_lexer.py
 
 import ply.lex as lex
+from tokens import Tokens
 
-tokens = [
-    "LLAVE_ABRE",
-    "LLAVE_CIERRA",
-    "COMA",
-    "DOS_PUNTOS",
-    "NUMERO",
-    "CADENA_COMILLAS",
-    "CADENA_NO_COMILLAS",
-    "TRUE",
-    "FALSE",
-    "NULO",
-    "IGUAL",
-    "MAYOR",
-    "MENOR",
-    "MAYOR_IGUAL",
-    "MENOR_IGUAL",
-    # "ENTERO",
-    # "DECIMAL",
-    # "CIENTIFICO",
-    # "BINARIO",
-    # "OCTAL",
-    # "HEXADECIMAL"
-    "NUMERO"
-]
+# tokens = [
+#     "LLAVE_ABRE",
+#     "LLAVE_CIERRA",
+#     "COMA",
+#     "DOS_PUNTOS",
+#     "NUMERO",
+#     "CADENA_COMILLAS",
+#     "CADENA_NO_COMILLAS",
+#     "TRUE",
+#     "FALSE",
+#     "NULO",
+#     "IGUAL",
+#     "MAYOR",
+#     "MENOR",
+#     "MAYOR_IGUAL",
+#     "MENOR_IGUAL",
+#     # "ENTERO",
+#     # "DECIMAL",
+#     # "CIENTIFICO",
+#     # "BINARIO",
+#     # "OCTAL",
+#     # "HEXADECIMAL"
+#     "NUMERO"
+# ]
+
+tokens = Tokens.tokens
 
 t_LLAVE_ABRE = r"\{"
 t_LLAVE_CIERRA = r"\}"
@@ -44,17 +47,17 @@ def t_CADENA_COMILLAS(t):
     return t
 
 def t_TRUE(t):
-    r"TR"
+    r"TR|tr"
     t.value = True
     return t
 
 def t_FALSE(t):
-    r"FL"
+    r"FL|fl"
     t.value = False
     return t
 
 def t_NULO(t):
-    r"NULL"
+    r"NULL|null"
     t.value = None
     return t
 
