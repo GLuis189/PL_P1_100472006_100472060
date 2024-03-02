@@ -7,7 +7,6 @@ def p_programa(p):
     '''programa : LLAVE_ABRE lista LLAVE_CIERRA
                 | LLAVE_ABRE LLAVE_CIERRA'''
 
-
 def p_lista(p):
     '''lista : elemento
              | elemento COMA 
