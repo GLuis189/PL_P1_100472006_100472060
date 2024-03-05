@@ -15,16 +15,16 @@ def print_salida(result):
     print(f'>> FICHERO AJSON "{sys.argv[1]}" ')
     for key, value in result.items():
         if isinstance(value, dict):
-            _print_salida(value, key)
+            _print_salida(value, str(key))
         else:
-            print("{ " + key + " : " + str(value) + " }")
+            print("  { " + key + " : " + str(value) + " }")
 
 def _print_salida(result, origen):
     for key, value in result.items():
         if isinstance(value, dict):
-            _print_salida(value, key)
+            _print_salida(value, origen + "." + str(key) )
         else:
-            print("{ " + origen + "." + key + ": " + str(value) + " }")
+            print("  { " + origen + "." + key + ": " + str(value) + " }")
     
 
 

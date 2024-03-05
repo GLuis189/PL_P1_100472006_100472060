@@ -7,9 +7,9 @@ class Tokens:
         "NUMERO",
         "CADENA_COMILLAS",
         "CADENA_NO_COMILLAS",
-        "TRUE",
-        "FALSE",
-        "NULO",
+        # "TRUE",
+        # "FALSE",
+        # "NULO",
         "IGUAL",
         "MAYOR",
         "MENOR",
@@ -22,3 +22,12 @@ class Tokens:
         # "OCTAL",
         # "HEXADECIMAL"
     ]
+
+    reserved = {
+        "tr": "TRUE",
+        "fl": "FALSE",
+        "null": "NULO",
+        "TR": "TRUE",
+        "FL": "FALSE",
+        "NULL": "NULO"
+    }

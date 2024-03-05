@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 from tokens import Tokens
 
-tokens = Tokens.tokens
+tokens = Tokens.tokens + list(Tokens.reserved.values())
 
 def p_programa(p):
     '''programa : ajson

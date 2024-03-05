@@ -28,7 +28,7 @@ from tokens import Tokens
 #     "NUMERO"
 # ]
 
-tokens = Tokens.tokens
+tokens = Tokens.tokens + list(Tokens.reserved.values())
 
 t_LLAVE_ABRE = r"\{"
 t_LLAVE_CIERRA = r"\}"
@@ -39,27 +39,39 @@ t_MAYOR = r">"
 t_MENOR = r"<"
 t_MAYOR_IGUAL = r">="
 t_MENOR_IGUAL = r"<="
-t_CADENA_NO_COMILLAS = r"[a-zA-Z_][a-zA-Z_0-9]*"
+# t_CADENA_NO_COMILLAS = r"[a-zA-Z_][a-zA-Z_0-9]*"
+
+def t_CADENA_NO_COMILLAS(t):
+    r"[a-zA-Z_][a-zA-Z_0-9]*"
+    if t.value in Tokens.reserved:
+        t.type = Tokens.reserved[t.value]
+        if t.type == "TRUE":
+            t.value = True
+        elif t.type == "FALSE":
+            t.value = False
+        elif t.type == "NULO":
+            t.value = None
+    return t
 
 def t_CADENA_COMILLAS(t):
     r"\"[^\"]*\""
     t.value = t.value[1:-1]
     return t
 
-def t_TRUE(t):
-    r"TR|tr"
-    t.value = True
-    return t
+# def t_TRUE(t):
+#     r"TR|tr"
+#     t.value = True
+#     return t
 
-def t_FALSE(t):
-    r"FL|fl"
-    t.value = False
-    return t
+# def t_FALSE(t):
+#     r"FL|fl"
+#     t.value = False
+#     return t
 
-def t_NULO(t):
-    r"NULL|null"
-    t.value = None
-    return t
+# def t_NULO(t):
+#     r"NULL|null"
+#     t.value = None
+#     return t
 
 # def t_BINARIO(t):
 #     r"0(b|B)[01]+"

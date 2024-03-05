@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CADENA_COMILLAS CADENA_NO_COMILLAS COMA DOS_PUNTOS FALSE IGUAL LLAVE_ABRE LLAVE_CIERRA MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL NULO NUMERO TRUEprograma : ajson\n                | emptyajson : LLAVE_ABRE lista LLAVE_CIERRA\n             | LLAVE_ABRE LLAVE_CIERRAlista : elemento\n             | elemento COMA \n             | elemento COMA listaelemento : CADENA_NO_COMILLAS DOS_PUNTOS valor\n                | CADENA_COMILLAS DOS_PUNTOS valorvalor : CADENA_COMILLAS\n             | NUMERO\n             | comparacion\n             | TRUE\n             | FALSE\n             | NULO\n             | ajsoncomparacion : NUMERO MAYOR NUMERO\n                   | NUMERO MENOR NUMERO\n                   | NUMERO MAYOR_IGUAL NUMERO\n                   | NUMERO MENOR_IGUAL NUMERO\n                   | NUMERO IGUAL NUMEROempty :'
+_lr_signature = 'CADENA_COMILLAS CADENA_NO_COMILLAS COMA DOS_PUNTOS FALSE FALSE IGUAL LLAVE_ABRE LLAVE_CIERRA MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL NULO NULO NUMERO TRUE TRUEprograma : ajson\n                | emptyajson : LLAVE_ABRE lista LLAVE_CIERRA\n             | LLAVE_ABRE LLAVE_CIERRAlista : elemento\n             | elemento COMA \n             | elemento COMA listaelemento : CADENA_NO_COMILLAS DOS_PUNTOS valor\n                | CADENA_COMILLAS DOS_PUNTOS valorvalor : CADENA_COMILLAS\n             | NUMERO\n             | comparacion\n             | TRUE\n             | FALSE\n             | NULO\n             | ajsoncomparacion : NUMERO MAYOR NUMERO\n                   | NUMERO MENOR NUMERO\n                   | NUMERO MAYOR_IGUAL NUMERO\n                   | NUMERO MENOR_IGUAL NUMERO\n                   | NUMERO IGUAL NUMEROempty :'
     
 _lr_action_items = {'LLAVE_ABRE':([0,12,13,],[4,4,4,]),'$end':([0,1,2,3,6,10,],[-22,0,-1,-2,-4,-3,]),'LLAVE_CIERRA':([4,5,6,7,10,11,14,15,16,17,18,19,20,21,22,23,29,30,31,32,33,],[6,10,-4,-5,-3,-6,-7,-8,-10,-11,-12,-13,-14,-15,-16,-9,-17,-18,-19,-20,-21,]),'CADENA_NO_COMILLAS':([4,11,],[8,8,]),'CADENA_COMILLAS':([4,11,12,13,],[9,9,16,16,]),'COMA':([6,7,10,15,16,17,18,19,20,21,22,23,29,30,31,32,33,],[-4,11,-3,-8,-10,-11,-12,-13,-14,-15,-16,-9,-17,-18,-19,-20,-21,]),'DOS_PUNTOS':([8,9,],[12,13,]),'NUMERO':([12,13,24,25,26,27,28,],[17,17,29,30,31,32,33,]),'TRUE':([12,13,],[19,19,]),'FALSE':([12,13,],[20,20,]),'NULO':([12,13,],[21,21,]),'MAYOR':([17,],[24,]),'MENOR':([17,],[25,]),'MAYOR_IGUAL':([17,],[26,]),'MENOR_IGUAL':([17,],[27,]),'IGUAL':([17,],[28,]),}
 
@@ -29,24 +29,24 @@ _lr_productions = [
   ("S' -> programa","S'",1,None,None,None),
   ('programa -> ajson','programa',1,'p_programa','ajson_parser.py',7),
   ('programa -> empty','programa',1,'p_programa','ajson_parser.py',8),
-  ('ajson -> LLAVE_ABRE lista LLAVE_CIERRA','ajson',3,'p_ajson','ajson_parser.py',14),
-  ('ajson -> LLAVE_ABRE LLAVE_CIERRA','ajson',2,'p_ajson','ajson_parser.py',15),
-  ('lista -> elemento','lista',1,'p_lista','ajson_parser.py',22),
-  ('lista -> elemento COMA','lista',2,'p_lista','ajson_parser.py',23),
-  ('lista -> elemento COMA lista','lista',3,'p_lista','ajson_parser.py',24),
-  ('elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor','elemento',3,'p_elemento','ajson_parser.py',31),
-  ('elemento -> CADENA_COMILLAS DOS_PUNTOS valor','elemento',3,'p_elemento','ajson_parser.py',32),
-  ('valor -> CADENA_COMILLAS','valor',1,'p_valor','ajson_parser.py',36),
-  ('valor -> NUMERO','valor',1,'p_valor','ajson_parser.py',37),
-  ('valor -> comparacion','valor',1,'p_valor','ajson_parser.py',38),
-  ('valor -> TRUE','valor',1,'p_valor','ajson_parser.py',39),
-  ('valor -> FALSE','valor',1,'p_valor','ajson_parser.py',40),
-  ('valor -> NULO','valor',1,'p_valor','ajson_parser.py',41),
-  ('valor -> ajson','valor',1,'p_valor','ajson_parser.py',42),
-  ('comparacion -> NUMERO MAYOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',46),
-  ('comparacion -> NUMERO MENOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',47),
-  ('comparacion -> NUMERO MAYOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',48),
-  ('comparacion -> NUMERO MENOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',49),
-  ('comparacion -> NUMERO IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',50),
-  ('empty -> <empty>','empty',0,'p_empty','ajson_parser.py',63),
+  ('ajson -> LLAVE_ABRE lista LLAVE_CIERRA','ajson',3,'p_ajson','ajson_parser.py',12),
+  ('ajson -> LLAVE_ABRE LLAVE_CIERRA','ajson',2,'p_ajson','ajson_parser.py',13),
+  ('lista -> elemento','lista',1,'p_lista','ajson_parser.py',20),
+  ('lista -> elemento COMA','lista',2,'p_lista','ajson_parser.py',21),
+  ('lista -> elemento COMA lista','lista',3,'p_lista','ajson_parser.py',22),
+  ('elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor','elemento',3,'p_elemento','ajson_parser.py',29),
+  ('elemento -> CADENA_COMILLAS DOS_PUNTOS valor','elemento',3,'p_elemento','ajson_parser.py',30),
+  ('valor -> CADENA_COMILLAS','valor',1,'p_valor','ajson_parser.py',34),
+  ('valor -> NUMERO','valor',1,'p_valor','ajson_parser.py',35),
+  ('valor -> comparacion','valor',1,'p_valor','ajson_parser.py',36),
+  ('valor -> TRUE','valor',1,'p_valor','ajson_parser.py',37),
+  ('valor -> FALSE','valor',1,'p_valor','ajson_parser.py',38),
+  ('valor -> NULO','valor',1,'p_valor','ajson_parser.py',39),
+  ('valor -> ajson','valor',1,'p_valor','ajson_parser.py',40),
+  ('comparacion -> NUMERO MAYOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',44),
+  ('comparacion -> NUMERO MENOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',45),
+  ('comparacion -> NUMERO MAYOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',46),
+  ('comparacion -> NUMERO MENOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',47),
+  ('comparacion -> NUMERO IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',48),
+  ('empty -> <empty>','empty',0,'p_empty','ajson_parser.py',61),
 ]

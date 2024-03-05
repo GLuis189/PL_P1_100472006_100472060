@@ -2,10 +2,15 @@
     clave_vacia: {},
     clave_numero: 10,
     clave_cadena_caracteres: "string",
-    clave_booleano: TR,
+    clave_booleano: tr,
     clave_valor_nulo: NULL,
     clave_op_comp: 10 > 11,
     clave_anidada: {
         "clave con comillas": "",
+        segundo : {
+            tercero: {
+                hola : 5
+            }
+        }
     }
 }
