@@ -14,12 +14,11 @@ class Tokens:
         "MAYOR",
         "MENOR",
         "MAYOR_IGUAL",
-        "MENOR_IGUAL",
+        "MENOR_IGUAL"
         # "ENTERO",
         # "DECIMAL",
         # "CIENTIFICO",
         # "BINARIO",
         # "OCTAL",
         # "HEXADECIMAL"
-        "NUMERO"
     ]

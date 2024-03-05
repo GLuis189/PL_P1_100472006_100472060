@@ -3,65 +3,75 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Grammar
 
 Rule 0     S' -> programa
-Rule 1     programa -> LLAVE_ABRE lista LLAVE_CIERRA
-Rule 2     programa -> LLAVE_ABRE LLAVE_CIERRA
-Rule 3     lista -> elemento
-Rule 4     lista -> elemento COMA
-Rule 5     lista -> elemento COMA lista
-Rule 6     elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor
-Rule 7     elemento -> CADENA_COMILLAS DOS_PUNTOS valor
-Rule 8     elemento -> NULO
-Rule 9     valor -> CADENA_COMILLAS
-Rule 10    valor -> NUMERO
-Rule 11    valor -> comparacion
-Rule 12    valor -> TRUE
-Rule 13    valor -> FALSE
-Rule 14    valor -> NULO
-Rule 15    valor -> programa
-Rule 16    comparacion -> NUMERO MAYOR NUMERO
-Rule 17    comparacion -> NUMERO MENOR NUMERO
-Rule 18    comparacion -> NUMERO MAYOR_IGUAL NUMERO
-Rule 19    comparacion -> NUMERO MENOR_IGUAL NUMERO
-Rule 20    comparacion -> NUMERO IGUAL NUMERO
+Rule 1     programa -> ajson
+Rule 2     programa -> empty
+Rule 3     ajson -> LLAVE_ABRE lista LLAVE_CIERRA
+Rule 4     ajson -> LLAVE_ABRE LLAVE_CIERRA
+Rule 5     lista -> elemento
+Rule 6     lista -> elemento COMA
+Rule 7     lista -> elemento COMA lista
+Rule 8     elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor
+Rule 9     elemento -> CADENA_COMILLAS DOS_PUNTOS valor
+Rule 10    valor -> CADENA_COMILLAS
+Rule 11    valor -> NUMERO
+Rule 12    valor -> comparacion
+Rule 13    valor -> TRUE
+Rule 14    valor -> FALSE
+Rule 15    valor -> NULO
+Rule 16    valor -> ajson
+Rule 17    comparacion -> NUMERO MAYOR NUMERO
+Rule 18    comparacion -> NUMERO MENOR NUMERO
+Rule 19    comparacion -> NUMERO MAYOR_IGUAL NUMERO
+Rule 20    comparacion -> NUMERO MENOR_IGUAL NUMERO
+Rule 21    comparacion -> NUMERO IGUAL NUMERO
+Rule 22    empty -> <empty>
 
 Terminals, with rules where they appear
 
-CADENA_COMILLAS      : 7 9
-CADENA_NO_COMILLAS   : 6
-COMA                 : 4 5
-DOS_PUNTOS           : 6 7
-FALSE                : 13
-IGUAL                : 20
-LLAVE_ABRE           : 1 2
-LLAVE_CIERRA         : 1 2
-MAYOR                : 16
-MAYOR_IGUAL          : 18
-MENOR                : 17
-MENOR_IGUAL          : 19
-NULO                 : 8 14
-NUMERO               : 10 16 16 17 17 18 18 19 19 20 20
-TRUE                 : 12
+CADENA_COMILLAS      : 9 10
+CADENA_NO_COMILLAS   : 8
+COMA                 : 6 7
+DOS_PUNTOS           : 8 9
+FALSE                : 14
+IGUAL                : 21
+LLAVE_ABRE           : 3 4
+LLAVE_CIERRA         : 3 4
+MAYOR                : 17
+MAYOR_IGUAL          : 19
+MENOR                : 18
+MENOR_IGUAL          : 20
+NULO                 : 15
+NUMERO               : 11 17 17 18 18 19 19 20 20 21 21
+TRUE                 : 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-comparacion          : 11
-elemento             : 3 4 5
-lista                : 1 5
-programa             : 15 0
-valor                : 6 7
+ajson                : 1 16
+comparacion          : 12
+elemento             : 5 6 7
+empty                : 2
+lista                : 3 7
+programa             : 0
+valor                : 8 9
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . programa
-    (1) programa -> . LLAVE_ABRE lista LLAVE_CIERRA
-    (2) programa -> . LLAVE_ABRE LLAVE_CIERRA
+    (1) programa -> . ajson
+    (2) programa -> . empty
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+    (22) empty -> .
 
-    LLAVE_ABRE      shift and go to state 2
+    LLAVE_ABRE      shift and go to state 4
+    $end            reduce using rule 22 (empty -> .)
 
     programa                       shift and go to state 1
+    ajson                          shift and go to state 2
+    empty                          shift and go to state 3
 
 state 1
 
@@ -71,317 +81,319 @@ state 1
 
 state 2
 
-    (1) programa -> LLAVE_ABRE . lista LLAVE_CIERRA
-    (2) programa -> LLAVE_ABRE . LLAVE_CIERRA
-    (3) lista -> . elemento
-    (4) lista -> . elemento COMA
-    (5) lista -> . elemento COMA lista
-    (6) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
-    (7) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
-    (8) elemento -> . NULO
+    (1) programa -> ajson .
 
-    LLAVE_CIERRA    shift and go to state 4
-    CADENA_NO_COMILLAS shift and go to state 6
-    CADENA_COMILLAS shift and go to state 7
-    NULO            shift and go to state 8
+    $end            reduce using rule 1 (programa -> ajson .)
 
-    lista                          shift and go to state 3
-    elemento                       shift and go to state 5
 
 state 3
 
-    (1) programa -> LLAVE_ABRE lista . LLAVE_CIERRA
+    (2) programa -> empty .
 
-    LLAVE_CIERRA    shift and go to state 9
+    $end            reduce using rule 2 (programa -> empty .)
 
 
 state 4
 
-    (2) programa -> LLAVE_ABRE LLAVE_CIERRA .
+    (3) ajson -> LLAVE_ABRE . lista LLAVE_CIERRA
+    (4) ajson -> LLAVE_ABRE . LLAVE_CIERRA
+    (5) lista -> . elemento
+    (6) lista -> . elemento COMA
+    (7) lista -> . elemento COMA lista
+    (8) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
+    (9) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
 
-    $end            reduce using rule 2 (programa -> LLAVE_ABRE LLAVE_CIERRA .)
-    COMA            reduce using rule 2 (programa -> LLAVE_ABRE LLAVE_CIERRA .)
-    LLAVE_CIERRA    reduce using rule 2 (programa -> LLAVE_ABRE LLAVE_CIERRA .)
+    LLAVE_CIERRA    shift and go to state 6
+    CADENA_NO_COMILLAS shift and go to state 8
+    CADENA_COMILLAS shift and go to state 9
 
+    lista                          shift and go to state 5
+    elemento                       shift and go to state 7
 
 state 5
 
-    (3) lista -> elemento .
-    (4) lista -> elemento . COMA
-    (5) lista -> elemento . COMA lista
+    (3) ajson -> LLAVE_ABRE lista . LLAVE_CIERRA
 
-    LLAVE_CIERRA    reduce using rule 3 (lista -> elemento .)
-    COMA            shift and go to state 10
+    LLAVE_CIERRA    shift and go to state 10
 
 
 state 6
 
-    (6) elemento -> CADENA_NO_COMILLAS . DOS_PUNTOS valor
+    (4) ajson -> LLAVE_ABRE LLAVE_CIERRA .
 
-    DOS_PUNTOS      shift and go to state 11
+    $end            reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+    COMA            reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
 
 
 state 7
 
-    (7) elemento -> CADENA_COMILLAS . DOS_PUNTOS valor
+    (5) lista -> elemento .
+    (6) lista -> elemento . COMA
+    (7) lista -> elemento . COMA lista
 
-    DOS_PUNTOS      shift and go to state 12
+    LLAVE_CIERRA    reduce using rule 5 (lista -> elemento .)
+    COMA            shift and go to state 11
 
 
 state 8
 
-    (8) elemento -> NULO .
+    (8) elemento -> CADENA_NO_COMILLAS . DOS_PUNTOS valor
 
-    COMA            reduce using rule 8 (elemento -> NULO .)
-    LLAVE_CIERRA    reduce using rule 8 (elemento -> NULO .)
+    DOS_PUNTOS      shift and go to state 12
 
 
 state 9
 
-    (1) programa -> LLAVE_ABRE lista LLAVE_CIERRA .
+    (9) elemento -> CADENA_COMILLAS . DOS_PUNTOS valor
 
-    $end            reduce using rule 1 (programa -> LLAVE_ABRE lista LLAVE_CIERRA .)
-    COMA            reduce using rule 1 (programa -> LLAVE_ABRE lista LLAVE_CIERRA .)
-    LLAVE_CIERRA    reduce using rule 1 (programa -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    DOS_PUNTOS      shift and go to state 13
 
 
 state 10
 
-    (4) lista -> elemento COMA .
-    (5) lista -> elemento COMA . lista
-    (3) lista -> . elemento
-    (4) lista -> . elemento COMA
-    (5) lista -> . elemento COMA lista
-    (6) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
-    (7) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
-    (8) elemento -> . NULO
+    (3) ajson -> LLAVE_ABRE lista LLAVE_CIERRA .
 
-    LLAVE_CIERRA    reduce using rule 4 (lista -> elemento COMA .)
-    CADENA_NO_COMILLAS shift and go to state 6
-    CADENA_COMILLAS shift and go to state 7
-    NULO            shift and go to state 8
+    $end            reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    COMA            reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
 
-    elemento                       shift and go to state 5
-    lista                          shift and go to state 13
 
 state 11
 
-    (6) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS . valor
-    (9) valor -> . CADENA_COMILLAS
-    (10) valor -> . NUMERO
-    (11) valor -> . comparacion
-    (12) valor -> . TRUE
-    (13) valor -> . FALSE
-    (14) valor -> . NULO
-    (15) valor -> . programa
-    (16) comparacion -> . NUMERO MAYOR NUMERO
-    (17) comparacion -> . NUMERO MENOR NUMERO
-    (18) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
-    (19) comparacion -> . NUMERO MENOR_IGUAL NUMERO
-    (20) comparacion -> . NUMERO IGUAL NUMERO
-    (1) programa -> . LLAVE_ABRE lista LLAVE_CIERRA
-    (2) programa -> . LLAVE_ABRE LLAVE_CIERRA
+    (6) lista -> elemento COMA .
+    (7) lista -> elemento COMA . lista
+    (5) lista -> . elemento
+    (6) lista -> . elemento COMA
+    (7) lista -> . elemento COMA lista
+    (8) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
+    (9) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
 
-    CADENA_COMILLAS shift and go to state 15
-    NUMERO          shift and go to state 16
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NULO            shift and go to state 20
-    LLAVE_ABRE      shift and go to state 2
+    LLAVE_CIERRA    reduce using rule 6 (lista -> elemento COMA .)
+    CADENA_NO_COMILLAS shift and go to state 8
+    CADENA_COMILLAS shift and go to state 9
 
-    valor                          shift and go to state 14
-    comparacion                    shift and go to state 17
-    programa                       shift and go to state 21
+    elemento                       shift and go to state 7
+    lista                          shift and go to state 14
 
 state 12
 
-    (7) elemento -> CADENA_COMILLAS DOS_PUNTOS . valor
-    (9) valor -> . CADENA_COMILLAS
-    (10) valor -> . NUMERO
-    (11) valor -> . comparacion
-    (12) valor -> . TRUE
-    (13) valor -> . FALSE
-    (14) valor -> . NULO
-    (15) valor -> . programa
-    (16) comparacion -> . NUMERO MAYOR NUMERO
-    (17) comparacion -> . NUMERO MENOR NUMERO
-    (18) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
-    (19) comparacion -> . NUMERO MENOR_IGUAL NUMERO
-    (20) comparacion -> . NUMERO IGUAL NUMERO
-    (1) programa -> . LLAVE_ABRE lista LLAVE_CIERRA
-    (2) programa -> . LLAVE_ABRE LLAVE_CIERRA
+    (8) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS . valor
+    (10) valor -> . CADENA_COMILLAS
+    (11) valor -> . NUMERO
+    (12) valor -> . comparacion
+    (13) valor -> . TRUE
+    (14) valor -> . FALSE
+    (15) valor -> . NULO
+    (16) valor -> . ajson
+    (17) comparacion -> . NUMERO MAYOR NUMERO
+    (18) comparacion -> . NUMERO MENOR NUMERO
+    (19) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
+    (20) comparacion -> . NUMERO MENOR_IGUAL NUMERO
+    (21) comparacion -> . NUMERO IGUAL NUMERO
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
 
-    CADENA_COMILLAS shift and go to state 15
-    NUMERO          shift and go to state 16
-    TRUE            shift and go to state 18
-    FALSE           shift and go to state 19
-    NULO            shift and go to state 20
-    LLAVE_ABRE      shift and go to state 2
+    CADENA_COMILLAS shift and go to state 16
+    NUMERO          shift and go to state 17
+    TRUE            shift and go to state 19
+    FALSE           shift and go to state 20
+    NULO            shift and go to state 21
+    LLAVE_ABRE      shift and go to state 4
 
-    valor                          shift and go to state 22
-    comparacion                    shift and go to state 17
-    programa                       shift and go to state 21
+    valor                          shift and go to state 15
+    comparacion                    shift and go to state 18
+    ajson                          shift and go to state 22
 
 state 13
 
-    (5) lista -> elemento COMA lista .
+    (9) elemento -> CADENA_COMILLAS DOS_PUNTOS . valor
+    (10) valor -> . CADENA_COMILLAS
+    (11) valor -> . NUMERO
+    (12) valor -> . comparacion
+    (13) valor -> . TRUE
+    (14) valor -> . FALSE
+    (15) valor -> . NULO
+    (16) valor -> . ajson
+    (17) comparacion -> . NUMERO MAYOR NUMERO
+    (18) comparacion -> . NUMERO MENOR NUMERO
+    (19) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
+    (20) comparacion -> . NUMERO MENOR_IGUAL NUMERO
+    (21) comparacion -> . NUMERO IGUAL NUMERO
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
 
-    LLAVE_CIERRA    reduce using rule 5 (lista -> elemento COMA lista .)
+    CADENA_COMILLAS shift and go to state 16
+    NUMERO          shift and go to state 17
+    TRUE            shift and go to state 19
+    FALSE           shift and go to state 20
+    NULO            shift and go to state 21
+    LLAVE_ABRE      shift and go to state 4
 
+    valor                          shift and go to state 23
+    comparacion                    shift and go to state 18
+    ajson                          shift and go to state 22
 
 state 14
 
-    (6) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .
+    (7) lista -> elemento COMA lista .
 
-    COMA            reduce using rule 6 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
-    LLAVE_CIERRA    reduce using rule 6 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
+    LLAVE_CIERRA    reduce using rule 7 (lista -> elemento COMA lista .)
 
 
 state 15
 
-    (9) valor -> CADENA_COMILLAS .
+    (8) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .
 
-    COMA            reduce using rule 9 (valor -> CADENA_COMILLAS .)
-    LLAVE_CIERRA    reduce using rule 9 (valor -> CADENA_COMILLAS .)
+    COMA            reduce using rule 8 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
+    LLAVE_CIERRA    reduce using rule 8 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
 
 
 state 16
 
-    (10) valor -> NUMERO .
-    (16) comparacion -> NUMERO . MAYOR NUMERO
-    (17) comparacion -> NUMERO . MENOR NUMERO
-    (18) comparacion -> NUMERO . MAYOR_IGUAL NUMERO
-    (19) comparacion -> NUMERO . MENOR_IGUAL NUMERO
-    (20) comparacion -> NUMERO . IGUAL NUMERO
+    (10) valor -> CADENA_COMILLAS .
 
-    COMA            reduce using rule 10 (valor -> NUMERO .)
-    LLAVE_CIERRA    reduce using rule 10 (valor -> NUMERO .)
-    MAYOR           shift and go to state 23
-    MENOR           shift and go to state 24
-    MAYOR_IGUAL     shift and go to state 25
-    MENOR_IGUAL     shift and go to state 26
-    IGUAL           shift and go to state 27
+    COMA            reduce using rule 10 (valor -> CADENA_COMILLAS .)
+    LLAVE_CIERRA    reduce using rule 10 (valor -> CADENA_COMILLAS .)
 
 
 state 17
 
-    (11) valor -> comparacion .
+    (11) valor -> NUMERO .
+    (17) comparacion -> NUMERO . MAYOR NUMERO
+    (18) comparacion -> NUMERO . MENOR NUMERO
+    (19) comparacion -> NUMERO . MAYOR_IGUAL NUMERO
+    (20) comparacion -> NUMERO . MENOR_IGUAL NUMERO
+    (21) comparacion -> NUMERO . IGUAL NUMERO
 
-    COMA            reduce using rule 11 (valor -> comparacion .)
-    LLAVE_CIERRA    reduce using rule 11 (valor -> comparacion .)
+    COMA            reduce using rule 11 (valor -> NUMERO .)
+    LLAVE_CIERRA    reduce using rule 11 (valor -> NUMERO .)
+    MAYOR           shift and go to state 24
+    MENOR           shift and go to state 25
+    MAYOR_IGUAL     shift and go to state 26
+    MENOR_IGUAL     shift and go to state 27
+    IGUAL           shift and go to state 28
 
 
 state 18
 
-    (12) valor -> TRUE .
+    (12) valor -> comparacion .
 
-    COMA            reduce using rule 12 (valor -> TRUE .)
-    LLAVE_CIERRA    reduce using rule 12 (valor -> TRUE .)
+    COMA            reduce using rule 12 (valor -> comparacion .)
+    LLAVE_CIERRA    reduce using rule 12 (valor -> comparacion .)
 
 
 state 19
 
-    (13) valor -> FALSE .
+    (13) valor -> TRUE .
 
-    COMA            reduce using rule 13 (valor -> FALSE .)
-    LLAVE_CIERRA    reduce using rule 13 (valor -> FALSE .)
+    COMA            reduce using rule 13 (valor -> TRUE .)
+    LLAVE_CIERRA    reduce using rule 13 (valor -> TRUE .)
 
 
 state 20
 
-    (14) valor -> NULO .
+    (14) valor -> FALSE .
 
-    COMA            reduce using rule 14 (valor -> NULO .)
-    LLAVE_CIERRA    reduce using rule 14 (valor -> NULO .)
+    COMA            reduce using rule 14 (valor -> FALSE .)
+    LLAVE_CIERRA    reduce using rule 14 (valor -> FALSE .)
 
 
 state 21
 
-    (15) valor -> programa .
+    (15) valor -> NULO .
 
-    COMA            reduce using rule 15 (valor -> programa .)
-    LLAVE_CIERRA    reduce using rule 15 (valor -> programa .)
+    COMA            reduce using rule 15 (valor -> NULO .)
+    LLAVE_CIERRA    reduce using rule 15 (valor -> NULO .)
 
 
 state 22
 
-    (7) elemento -> CADENA_COMILLAS DOS_PUNTOS valor .
+    (16) valor -> ajson .
 
-    COMA            reduce using rule 7 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
-    LLAVE_CIERRA    reduce using rule 7 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
+    COMA            reduce using rule 16 (valor -> ajson .)
+    LLAVE_CIERRA    reduce using rule 16 (valor -> ajson .)
 
 
 state 23
 
-    (16) comparacion -> NUMERO MAYOR . NUMERO
+    (9) elemento -> CADENA_COMILLAS DOS_PUNTOS valor .
 
-    NUMERO          shift and go to state 28
+    COMA            reduce using rule 9 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
+    LLAVE_CIERRA    reduce using rule 9 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
 
 
 state 24
 
-    (17) comparacion -> NUMERO MENOR . NUMERO
+    (17) comparacion -> NUMERO MAYOR . NUMERO
 
     NUMERO          shift and go to state 29
 
 
 state 25
 
-    (18) comparacion -> NUMERO MAYOR_IGUAL . NUMERO
+    (18) comparacion -> NUMERO MENOR . NUMERO
 
     NUMERO          shift and go to state 30
 
 
 state 26
 
-    (19) comparacion -> NUMERO MENOR_IGUAL . NUMERO
+    (19) comparacion -> NUMERO MAYOR_IGUAL . NUMERO
 
     NUMERO          shift and go to state 31
 
 
 state 27
 
-    (20) comparacion -> NUMERO IGUAL . NUMERO
+    (20) comparacion -> NUMERO MENOR_IGUAL . NUMERO
 
     NUMERO          shift and go to state 32
 
 
 state 28
 
-    (16) comparacion -> NUMERO MAYOR NUMERO .
+    (21) comparacion -> NUMERO IGUAL . NUMERO
 
-    COMA            reduce using rule 16 (comparacion -> NUMERO MAYOR NUMERO .)
-    LLAVE_CIERRA    reduce using rule 16 (comparacion -> NUMERO MAYOR NUMERO .)
+    NUMERO          shift and go to state 33
 
 
 state 29
 
-    (17) comparacion -> NUMERO MENOR NUMERO .
+    (17) comparacion -> NUMERO MAYOR NUMERO .
 
-    COMA            reduce using rule 17 (comparacion -> NUMERO MENOR NUMERO .)
-    LLAVE_CIERRA    reduce using rule 17 (comparacion -> NUMERO MENOR NUMERO .)
+    COMA            reduce using rule 17 (comparacion -> NUMERO MAYOR NUMERO .)
+    LLAVE_CIERRA    reduce using rule 17 (comparacion -> NUMERO MAYOR NUMERO .)
 
 
 state 30
 
-    (18) comparacion -> NUMERO MAYOR_IGUAL NUMERO .
+    (18) comparacion -> NUMERO MENOR NUMERO .
 
-    COMA            reduce using rule 18 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
-    LLAVE_CIERRA    reduce using rule 18 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
+    COMA            reduce using rule 18 (comparacion -> NUMERO MENOR NUMERO .)
+    LLAVE_CIERRA    reduce using rule 18 (comparacion -> NUMERO MENOR NUMERO .)
 
 
 state 31
 
-    (19) comparacion -> NUMERO MENOR_IGUAL NUMERO .
+    (19) comparacion -> NUMERO MAYOR_IGUAL NUMERO .
 
-    COMA            reduce using rule 19 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
-    LLAVE_CIERRA    reduce using rule 19 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
+    COMA            reduce using rule 19 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 19 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
 
 
 state 32
 
-    (20) comparacion -> NUMERO IGUAL NUMERO .
+    (20) comparacion -> NUMERO MENOR_IGUAL NUMERO .
 
-    COMA            reduce using rule 20 (comparacion -> NUMERO IGUAL NUMERO .)
-    LLAVE_CIERRA    reduce using rule 20 (comparacion -> NUMERO IGUAL NUMERO .)
+    COMA            reduce using rule 20 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 20 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
+
+
+state 33
+
+    (21) comparacion -> NUMERO IGUAL NUMERO .
+
+    COMA            reduce using rule 21 (comparacion -> NUMERO IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 21 (comparacion -> NUMERO IGUAL NUMERO .)
 
