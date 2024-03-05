@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CADENA_COMILLAS CADENA_NO_COMILLAS COMA DOS_PUNTOS FALSE FALSE IGUAL LLAVE_ABRE LLAVE_CIERRA MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL NULO NULO NUMERO TRUE TRUEprograma : ajson\n                | emptyajson : LLAVE_ABRE lista LLAVE_CIERRA\n             | LLAVE_ABRE LLAVE_CIERRAlista : elemento\n             | elemento COMA \n             | elemento COMA listaelemento : CADENA_NO_COMILLAS DOS_PUNTOS valor\n                | CADENA_COMILLAS DOS_PUNTOS valorvalor : CADENA_COMILLAS\n             | NUMERO\n             | comparacion\n             | TRUE\n             | FALSE\n             | NULO\n             | ajsoncomparacion : NUMERO MAYOR NUMERO\n                   | NUMERO MENOR NUMERO\n                   | NUMERO MAYOR_IGUAL NUMERO\n                   | NUMERO MENOR_IGUAL NUMERO\n                   | NUMERO IGUAL NUMEROempty :'
+_lr_signature = 'CADENA_COMILLAS CADENA_NO_COMILLAS COMA CORCHETE_ABRE CORCHETE_CIERRA DOS_PUNTOS FL IGUAL LLAVE_ABRE LLAVE_CIERRA MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL NULL NUMERO TRprograma : ajson\n                | emptyajson : LLAVE_ABRE lista LLAVE_CIERRA\n             | LLAVE_ABRE LLAVE_CIERRAlista : elemento\n             | elemento COMA \n             | elemento COMA listaelemento : CADENA_NO_COMILLAS DOS_PUNTOS valor\n                | CADENA_COMILLAS DOS_PUNTOS valorvalor : CADENA_COMILLAS\n             | NUMERO\n             | comparacion\n             | TR\n             | FL\n             | NULL\n             | ajson\n             | arraycomparacion : NUMERO MAYOR NUMERO\n                   | NUMERO MENOR NUMERO\n                   | NUMERO MAYOR_IGUAL NUMERO\n                   | NUMERO MENOR_IGUAL NUMERO\n                   | NUMERO IGUAL NUMEROarray : CORCHETE_ABRE lista_array CORCHETE_CIERRA\n             | CORCHETE_ABRE CORCHETE_CIERRAlista_array : ajson\n                   | ajson COMA\n                   | ajson COMA lista_arrayempty :'
     
-_lr_action_items = {'LLAVE_ABRE':([0,12,13,],[4,4,4,]),'$end':([0,1,2,3,6,10,],[-22,0,-1,-2,-4,-3,]),'LLAVE_CIERRA':([4,5,6,7,10,11,14,15,16,17,18,19,20,21,22,23,29,30,31,32,33,],[6,10,-4,-5,-3,-6,-7,-8,-10,-11,-12,-13,-14,-15,-16,-9,-17,-18,-19,-20,-21,]),'CADENA_NO_COMILLAS':([4,11,],[8,8,]),'CADENA_COMILLAS':([4,11,12,13,],[9,9,16,16,]),'COMA':([6,7,10,15,16,17,18,19,20,21,22,23,29,30,31,32,33,],[-4,11,-3,-8,-10,-11,-12,-13,-14,-15,-16,-9,-17,-18,-19,-20,-21,]),'DOS_PUNTOS':([8,9,],[12,13,]),'NUMERO':([12,13,24,25,26,27,28,],[17,17,29,30,31,32,33,]),'TRUE':([12,13,],[19,19,]),'FALSE':([12,13,],[20,20,]),'NULO':([12,13,],[21,21,]),'MAYOR':([17,],[24,]),'MENOR':([17,],[25,]),'MAYOR_IGUAL':([17,],[26,]),'MENOR_IGUAL':([17,],[27,]),'IGUAL':([17,],[28,]),}
+_lr_action_items = {'LLAVE_ABRE':([0,12,13,24,40,],[4,4,4,4,4,]),'$end':([0,1,2,3,6,10,],[-28,0,-1,-2,-4,-3,]),'LLAVE_CIERRA':([4,5,6,7,10,11,14,15,16,17,18,19,20,21,22,23,25,32,34,35,36,37,38,39,],[6,10,-4,-5,-3,-6,-7,-8,-10,-11,-12,-13,-14,-15,-16,-17,-9,-24,-18,-19,-20,-21,-22,-23,]),'CADENA_NO_COMILLAS':([4,11,],[8,8,]),'CADENA_COMILLAS':([4,11,12,13,],[9,9,16,16,]),'COMA':([6,7,10,15,16,17,18,19,20,21,22,23,25,32,33,34,35,36,37,38,39,],[-4,11,-3,-8,-10,-11,-12,-13,-14,-15,-16,-17,-9,-24,40,-18,-19,-20,-21,-22,-23,]),'CORCHETE_CIERRA':([6,10,24,31,33,40,41,],[-4,-3,32,39,-25,-26,-27,]),'DOS_PUNTOS':([8,9,],[12,13,]),'NUMERO':([12,13,26,27,28,29,30,],[17,17,34,35,36,37,38,]),'TR':([12,13,],[19,19,]),'FL':([12,13,],[20,20,]),'NULL':([12,13,],[21,21,]),'CORCHETE_ABRE':([12,13,],[24,24,]),'MAYOR':([17,],[26,]),'MENOR':([17,],[27,]),'MAYOR_IGUAL':([17,],[28,]),'MENOR_IGUAL':([17,],[29,]),'IGUAL':([17,],[30,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programa':([0,],[1,]),'ajson':([0,12,13,],[2,22,22,]),'empty':([0,],[3,]),'lista':([4,11,],[5,14,]),'elemento':([4,11,],[7,7,]),'valor':([12,13,],[15,23,]),'comparacion':([12,13,],[18,18,]),}
+_lr_goto_items = {'programa':([0,],[1,]),'ajson':([0,12,13,24,40,],[2,22,22,33,33,]),'empty':([0,],[3,]),'lista':([4,11,],[5,14,]),'elemento':([4,11,],[7,7,]),'valor':([12,13,],[15,25,]),'comparacion':([12,13,],[18,18,]),'array':([12,13,],[23,23,]),'lista_array':([24,40,],[31,41,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -39,14 +39,20 @@ _lr_productions = [
   ('valor -> CADENA_COMILLAS','valor',1,'p_valor','ajson_parser.py',34),
   ('valor -> NUMERO','valor',1,'p_valor','ajson_parser.py',35),
   ('valor -> comparacion','valor',1,'p_valor','ajson_parser.py',36),
-  ('valor -> TRUE','valor',1,'p_valor','ajson_parser.py',37),
-  ('valor -> FALSE','valor',1,'p_valor','ajson_parser.py',38),
-  ('valor -> NULO','valor',1,'p_valor','ajson_parser.py',39),
+  ('valor -> TR','valor',1,'p_valor','ajson_parser.py',37),
+  ('valor -> FL','valor',1,'p_valor','ajson_parser.py',38),
+  ('valor -> NULL','valor',1,'p_valor','ajson_parser.py',39),
   ('valor -> ajson','valor',1,'p_valor','ajson_parser.py',40),
-  ('comparacion -> NUMERO MAYOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',44),
-  ('comparacion -> NUMERO MENOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',45),
-  ('comparacion -> NUMERO MAYOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',46),
-  ('comparacion -> NUMERO MENOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',47),
-  ('comparacion -> NUMERO IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',48),
-  ('empty -> <empty>','empty',0,'p_empty','ajson_parser.py',61),
+  ('valor -> array','valor',1,'p_valor','ajson_parser.py',41),
+  ('comparacion -> NUMERO MAYOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',45),
+  ('comparacion -> NUMERO MENOR NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',46),
+  ('comparacion -> NUMERO MAYOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',47),
+  ('comparacion -> NUMERO MENOR_IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',48),
+  ('comparacion -> NUMERO IGUAL NUMERO','comparacion',3,'p_comparacion','ajson_parser.py',49),
+  ('array -> CORCHETE_ABRE lista_array CORCHETE_CIERRA','array',3,'p_array','ajson_parser.py',62),
+  ('array -> CORCHETE_ABRE CORCHETE_CIERRA','array',2,'p_array','ajson_parser.py',63),
+  ('lista_array -> ajson','lista_array',1,'p_lista_array','ajson_parser.py',70),
+  ('lista_array -> ajson COMA','lista_array',2,'p_lista_array','ajson_parser.py',71),
+  ('lista_array -> ajson COMA lista_array','lista_array',3,'p_lista_array','ajson_parser.py',72),
+  ('empty -> <empty>','empty',0,'p_empty','ajson_parser.py',79),
 ]

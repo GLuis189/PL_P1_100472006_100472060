@@ -1,11 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    FL
-    NULL
-    TR
-
 Grammar
 
 Rule 0     S' -> programa
@@ -21,46 +15,487 @@ Rule 9     elemento -> CADENA_COMILLAS DOS_PUNTOS valor
 Rule 10    valor -> CADENA_COMILLAS
 Rule 11    valor -> NUMERO
 Rule 12    valor -> comparacion
-Rule 13    valor -> TRUE
-Rule 14    valor -> FALSE
-Rule 15    valor -> NULO
+Rule 13    valor -> TR
+Rule 14    valor -> FL
+Rule 15    valor -> NULL
 Rule 16    valor -> ajson
-Rule 17    comparacion -> NUMERO MAYOR NUMERO
-Rule 18    comparacion -> NUMERO MENOR NUMERO
-Rule 19    comparacion -> NUMERO MAYOR_IGUAL NUMERO
-Rule 20    comparacion -> NUMERO MENOR_IGUAL NUMERO
-Rule 21    comparacion -> NUMERO IGUAL NUMERO
-Rule 22    empty -> <empty>
+Rule 17    valor -> array
+Rule 18    comparacion -> NUMERO MAYOR NUMERO
+Rule 19    comparacion -> NUMERO MENOR NUMERO
+Rule 20    comparacion -> NUMERO MAYOR_IGUAL NUMERO
+Rule 21    comparacion -> NUMERO MENOR_IGUAL NUMERO
+Rule 22    comparacion -> NUMERO IGUAL NUMERO
+Rule 23    array -> CORCHETE_ABRE lista_array CORCHETE_CIERRA
+Rule 24    array -> CORCHETE_ABRE CORCHETE_CIERRA
+Rule 25    lista_array -> ajson
+Rule 26    lista_array -> ajson COMA
+Rule 27    lista_array -> ajson COMA lista_array
+Rule 28    empty -> <empty>
 
 Terminals, with rules where they appear
 
 CADENA_COMILLAS      : 9 10
 CADENA_NO_COMILLAS   : 8
-COMA                 : 6 7
+COMA                 : 6 7 26 27
+CORCHETE_ABRE        : 23 24
+CORCHETE_CIERRA      : 23 24
 DOS_PUNTOS           : 8 9
-FL                   : 
-IGUAL                : 21
+FL                   : 14
+IGUAL                : 22
 LLAVE_ABRE           : 3 4
 LLAVE_CIERRA         : 3 4
-MAYOR                : 17
-MAYOR_IGUAL          : 19
-MENOR                : 18
-MENOR_IGUAL          : 20
-NULL                 : 
-NUMERO               : 11 17 17 18 18 19 19 20 20 21 21
-TR                   : 
+MAYOR                : 18
+MAYOR_IGUAL          : 20
+MENOR                : 19
+MENOR_IGUAL          : 21
+NULL                 : 15
+NUMERO               : 11 18 18 19 19 20 20 21 21 22 22
+TR                   : 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-FALSE                : 14
-NULO                 : 15
-TRUE                 : 13
-ajson                : 1 16
+ajson                : 1 16 25 26 27
+array                : 17
 comparacion          : 12
 elemento             : 5 6 7
 empty                : 2
 lista                : 3 7
+lista_array          : 23 27
 programa             : 0
 valor                : 8 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . ajson
+    (2) programa -> . empty
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+    (28) empty -> .
+
+    LLAVE_ABRE      shift and go to state 4
+    $end            reduce using rule 28 (empty -> .)
+
+    programa                       shift and go to state 1
+    ajson                          shift and go to state 2
+    empty                          shift and go to state 3
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> ajson .
+
+    $end            reduce using rule 1 (programa -> ajson .)
+
+
+state 3
+
+    (2) programa -> empty .
+
+    $end            reduce using rule 2 (programa -> empty .)
+
+
+state 4
+
+    (3) ajson -> LLAVE_ABRE . lista LLAVE_CIERRA
+    (4) ajson -> LLAVE_ABRE . LLAVE_CIERRA
+    (5) lista -> . elemento
+    (6) lista -> . elemento COMA
+    (7) lista -> . elemento COMA lista
+    (8) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
+    (9) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
+
+    LLAVE_CIERRA    shift and go to state 6
+    CADENA_NO_COMILLAS shift and go to state 8
+    CADENA_COMILLAS shift and go to state 9
+
+    lista                          shift and go to state 5
+    elemento                       shift and go to state 7
+
+state 5
+
+    (3) ajson -> LLAVE_ABRE lista . LLAVE_CIERRA
+
+    LLAVE_CIERRA    shift and go to state 10
+
+
+state 6
+
+    (4) ajson -> LLAVE_ABRE LLAVE_CIERRA .
+
+    $end            reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+    COMA            reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+    CORCHETE_CIERRA reduce using rule 4 (ajson -> LLAVE_ABRE LLAVE_CIERRA .)
+
+
+state 7
+
+    (5) lista -> elemento .
+    (6) lista -> elemento . COMA
+    (7) lista -> elemento . COMA lista
+
+    LLAVE_CIERRA    reduce using rule 5 (lista -> elemento .)
+    COMA            shift and go to state 11
+
+
+state 8
+
+    (8) elemento -> CADENA_NO_COMILLAS . DOS_PUNTOS valor
+
+    DOS_PUNTOS      shift and go to state 12
+
+
+state 9
+
+    (9) elemento -> CADENA_COMILLAS . DOS_PUNTOS valor
+
+    DOS_PUNTOS      shift and go to state 13
+
+
+state 10
+
+    (3) ajson -> LLAVE_ABRE lista LLAVE_CIERRA .
+
+    $end            reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    COMA            reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+    CORCHETE_CIERRA reduce using rule 3 (ajson -> LLAVE_ABRE lista LLAVE_CIERRA .)
+
+
+state 11
+
+    (6) lista -> elemento COMA .
+    (7) lista -> elemento COMA . lista
+    (5) lista -> . elemento
+    (6) lista -> . elemento COMA
+    (7) lista -> . elemento COMA lista
+    (8) elemento -> . CADENA_NO_COMILLAS DOS_PUNTOS valor
+    (9) elemento -> . CADENA_COMILLAS DOS_PUNTOS valor
+
+    LLAVE_CIERRA    reduce using rule 6 (lista -> elemento COMA .)
+    CADENA_NO_COMILLAS shift and go to state 8
+    CADENA_COMILLAS shift and go to state 9
+
+    elemento                       shift and go to state 7
+    lista                          shift and go to state 14
+
+state 12
+
+    (8) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS . valor
+    (10) valor -> . CADENA_COMILLAS
+    (11) valor -> . NUMERO
+    (12) valor -> . comparacion
+    (13) valor -> . TR
+    (14) valor -> . FL
+    (15) valor -> . NULL
+    (16) valor -> . ajson
+    (17) valor -> . array
+    (18) comparacion -> . NUMERO MAYOR NUMERO
+    (19) comparacion -> . NUMERO MENOR NUMERO
+    (20) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
+    (21) comparacion -> . NUMERO MENOR_IGUAL NUMERO
+    (22) comparacion -> . NUMERO IGUAL NUMERO
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+    (23) array -> . CORCHETE_ABRE lista_array CORCHETE_CIERRA
+    (24) array -> . CORCHETE_ABRE CORCHETE_CIERRA
+
+    CADENA_COMILLAS shift and go to state 16
+    NUMERO          shift and go to state 17
+    TR              shift and go to state 19
+    FL              shift and go to state 20
+    NULL            shift and go to state 21
+    LLAVE_ABRE      shift and go to state 4
+    CORCHETE_ABRE   shift and go to state 24
+
+    valor                          shift and go to state 15
+    comparacion                    shift and go to state 18
+    ajson                          shift and go to state 22
+    array                          shift and go to state 23
+
+state 13
+
+    (9) elemento -> CADENA_COMILLAS DOS_PUNTOS . valor
+    (10) valor -> . CADENA_COMILLAS
+    (11) valor -> . NUMERO
+    (12) valor -> . comparacion
+    (13) valor -> . TR
+    (14) valor -> . FL
+    (15) valor -> . NULL
+    (16) valor -> . ajson
+    (17) valor -> . array
+    (18) comparacion -> . NUMERO MAYOR NUMERO
+    (19) comparacion -> . NUMERO MENOR NUMERO
+    (20) comparacion -> . NUMERO MAYOR_IGUAL NUMERO
+    (21) comparacion -> . NUMERO MENOR_IGUAL NUMERO
+    (22) comparacion -> . NUMERO IGUAL NUMERO
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+    (23) array -> . CORCHETE_ABRE lista_array CORCHETE_CIERRA
+    (24) array -> . CORCHETE_ABRE CORCHETE_CIERRA
+
+    CADENA_COMILLAS shift and go to state 16
+    NUMERO          shift and go to state 17
+    TR              shift and go to state 19
+    FL              shift and go to state 20
+    NULL            shift and go to state 21
+    LLAVE_ABRE      shift and go to state 4
+    CORCHETE_ABRE   shift and go to state 24
+
+    valor                          shift and go to state 25
+    comparacion                    shift and go to state 18
+    ajson                          shift and go to state 22
+    array                          shift and go to state 23
+
+state 14
+
+    (7) lista -> elemento COMA lista .
+
+    LLAVE_CIERRA    reduce using rule 7 (lista -> elemento COMA lista .)
+
+
+state 15
+
+    (8) elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .
+
+    COMA            reduce using rule 8 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
+    LLAVE_CIERRA    reduce using rule 8 (elemento -> CADENA_NO_COMILLAS DOS_PUNTOS valor .)
+
+
+state 16
+
+    (10) valor -> CADENA_COMILLAS .
+
+    COMA            reduce using rule 10 (valor -> CADENA_COMILLAS .)
+    LLAVE_CIERRA    reduce using rule 10 (valor -> CADENA_COMILLAS .)
+
+
+state 17
+
+    (11) valor -> NUMERO .
+    (18) comparacion -> NUMERO . MAYOR NUMERO
+    (19) comparacion -> NUMERO . MENOR NUMERO
+    (20) comparacion -> NUMERO . MAYOR_IGUAL NUMERO
+    (21) comparacion -> NUMERO . MENOR_IGUAL NUMERO
+    (22) comparacion -> NUMERO . IGUAL NUMERO
+
+    COMA            reduce using rule 11 (valor -> NUMERO .)
+    LLAVE_CIERRA    reduce using rule 11 (valor -> NUMERO .)
+    MAYOR           shift and go to state 26
+    MENOR           shift and go to state 27
+    MAYOR_IGUAL     shift and go to state 28
+    MENOR_IGUAL     shift and go to state 29
+    IGUAL           shift and go to state 30
+
+
+state 18
+
+    (12) valor -> comparacion .
+
+    COMA            reduce using rule 12 (valor -> comparacion .)
+    LLAVE_CIERRA    reduce using rule 12 (valor -> comparacion .)
+
+
+state 19
+
+    (13) valor -> TR .
+
+    COMA            reduce using rule 13 (valor -> TR .)
+    LLAVE_CIERRA    reduce using rule 13 (valor -> TR .)
+
+
+state 20
+
+    (14) valor -> FL .
+
+    COMA            reduce using rule 14 (valor -> FL .)
+    LLAVE_CIERRA    reduce using rule 14 (valor -> FL .)
+
+
+state 21
+
+    (15) valor -> NULL .
+
+    COMA            reduce using rule 15 (valor -> NULL .)
+    LLAVE_CIERRA    reduce using rule 15 (valor -> NULL .)
+
+
+state 22
+
+    (16) valor -> ajson .
+
+    COMA            reduce using rule 16 (valor -> ajson .)
+    LLAVE_CIERRA    reduce using rule 16 (valor -> ajson .)
+
+
+state 23
+
+    (17) valor -> array .
+
+    COMA            reduce using rule 17 (valor -> array .)
+    LLAVE_CIERRA    reduce using rule 17 (valor -> array .)
+
+
+state 24
+
+    (23) array -> CORCHETE_ABRE . lista_array CORCHETE_CIERRA
+    (24) array -> CORCHETE_ABRE . CORCHETE_CIERRA
+    (25) lista_array -> . ajson
+    (26) lista_array -> . ajson COMA
+    (27) lista_array -> . ajson COMA lista_array
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+
+    CORCHETE_CIERRA shift and go to state 32
+    LLAVE_ABRE      shift and go to state 4
+
+    lista_array                    shift and go to state 31
+    ajson                          shift and go to state 33
+
+state 25
+
+    (9) elemento -> CADENA_COMILLAS DOS_PUNTOS valor .
+
+    COMA            reduce using rule 9 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
+    LLAVE_CIERRA    reduce using rule 9 (elemento -> CADENA_COMILLAS DOS_PUNTOS valor .)
+
+
+state 26
+
+    (18) comparacion -> NUMERO MAYOR . NUMERO
+
+    NUMERO          shift and go to state 34
+
+
+state 27
+
+    (19) comparacion -> NUMERO MENOR . NUMERO
+
+    NUMERO          shift and go to state 35
+
+
+state 28
+
+    (20) comparacion -> NUMERO MAYOR_IGUAL . NUMERO
+
+    NUMERO          shift and go to state 36
+
+
+state 29
+
+    (21) comparacion -> NUMERO MENOR_IGUAL . NUMERO
+
+    NUMERO          shift and go to state 37
+
+
+state 30
+
+    (22) comparacion -> NUMERO IGUAL . NUMERO
+
+    NUMERO          shift and go to state 38
+
+
+state 31
+
+    (23) array -> CORCHETE_ABRE lista_array . CORCHETE_CIERRA
+
+    CORCHETE_CIERRA shift and go to state 39
+
+
+state 32
+
+    (24) array -> CORCHETE_ABRE CORCHETE_CIERRA .
+
+    COMA            reduce using rule 24 (array -> CORCHETE_ABRE CORCHETE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 24 (array -> CORCHETE_ABRE CORCHETE_CIERRA .)
+
+
+state 33
+
+    (25) lista_array -> ajson .
+    (26) lista_array -> ajson . COMA
+    (27) lista_array -> ajson . COMA lista_array
+
+    CORCHETE_CIERRA reduce using rule 25 (lista_array -> ajson .)
+    COMA            shift and go to state 40
+
+
+state 34
+
+    (18) comparacion -> NUMERO MAYOR NUMERO .
+
+    COMA            reduce using rule 18 (comparacion -> NUMERO MAYOR NUMERO .)
+    LLAVE_CIERRA    reduce using rule 18 (comparacion -> NUMERO MAYOR NUMERO .)
+
+
+state 35
+
+    (19) comparacion -> NUMERO MENOR NUMERO .
+
+    COMA            reduce using rule 19 (comparacion -> NUMERO MENOR NUMERO .)
+    LLAVE_CIERRA    reduce using rule 19 (comparacion -> NUMERO MENOR NUMERO .)
+
+
+state 36
+
+    (20) comparacion -> NUMERO MAYOR_IGUAL NUMERO .
+
+    COMA            reduce using rule 20 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 20 (comparacion -> NUMERO MAYOR_IGUAL NUMERO .)
+
+
+state 37
+
+    (21) comparacion -> NUMERO MENOR_IGUAL NUMERO .
+
+    COMA            reduce using rule 21 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 21 (comparacion -> NUMERO MENOR_IGUAL NUMERO .)
+
+
+state 38
+
+    (22) comparacion -> NUMERO IGUAL NUMERO .
+
+    COMA            reduce using rule 22 (comparacion -> NUMERO IGUAL NUMERO .)
+    LLAVE_CIERRA    reduce using rule 22 (comparacion -> NUMERO IGUAL NUMERO .)
+
+
+state 39
+
+    (23) array -> CORCHETE_ABRE lista_array CORCHETE_CIERRA .
+
+    COMA            reduce using rule 23 (array -> CORCHETE_ABRE lista_array CORCHETE_CIERRA .)
+    LLAVE_CIERRA    reduce using rule 23 (array -> CORCHETE_ABRE lista_array CORCHETE_CIERRA .)
+
+
+state 40
+
+    (26) lista_array -> ajson COMA .
+    (27) lista_array -> ajson COMA . lista_array
+    (25) lista_array -> . ajson
+    (26) lista_array -> . ajson COMA
+    (27) lista_array -> . ajson COMA lista_array
+    (3) ajson -> . LLAVE_ABRE lista LLAVE_CIERRA
+    (4) ajson -> . LLAVE_ABRE LLAVE_CIERRA
+
+    CORCHETE_CIERRA reduce using rule 26 (lista_array -> ajson COMA .)
+    LLAVE_ABRE      shift and go to state 4
+
+    ajson                          shift and go to state 33
+    lista_array                    shift and go to state 41
+
+state 41
+
+    (27) lista_array -> ajson COMA lista_array .
+
+    CORCHETE_CIERRA reduce using rule 27 (lista_array -> ajson COMA lista_array .)
 

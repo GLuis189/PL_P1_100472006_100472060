@@ -37,7 +37,8 @@ def p_valor(p):
              | TR
              | FL
              | NULL
-             | ajson'''
+             | ajson
+             | array'''
     p[0] = p[1]
 
 def p_comparacion(p):
@@ -56,6 +57,23 @@ def p_comparacion(p):
         p[0] = p[1] <= p[3]
     elif p[2] == '==':
         p[0] = p[1] == p[3]
+
+def p_array(p):
+    '''array : CORCHETE_ABRE lista_array CORCHETE_CIERRA
+             | CORCHETE_ABRE CORCHETE_CIERRA'''
+    if len(p) == 4:
+        p[0] = p[2]
+    elif len(p) == 3:
+        p[0] = None
+
+def p_lista_array(p):
+    '''lista_array : ajson
+                   | ajson COMA
+                   | ajson COMA lista_array'''
+    if len(p) == 2 or len(p) == 3:
+        p[0] = p[1]
+    elif len(p) == 4:
+        p[0] = list({**p[1], **p[3]})
 
 def p_empty(p):
     'empty :'

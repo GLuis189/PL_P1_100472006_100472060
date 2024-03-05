@@ -45,6 +45,8 @@ t_MAYOR = r">"
 t_MENOR = r"<"
 t_MAYOR_IGUAL = r">="
 t_MENOR_IGUAL = r"<="
+t_CORCHETE_ABRE = r"\["
+t_CORCHETE_CIERRA = r"\]"
 # t_CADENA_NO_COMILLAS = r"[a-zA-Z_][a-zA-Z_0-9]*"
 
 
