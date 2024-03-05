@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 from tokens import Tokens
 
-tokens = Tokens.tokens + list(Tokens.reserved.values())
+tokens = Tokens.tokens + Tokens.reserved
 
 def p_programa(p):
     '''programa : ajson
@@ -34,9 +34,9 @@ def p_valor(p):
     '''valor : CADENA_COMILLAS
              | NUMERO
              | comparacion
-             | TRUE
-             | FALSE
-             | NULO
+             | TR
+             | FL
+             | NULL
              | ajson'''
     p[0] = p[1]
 

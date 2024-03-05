@@ -23,11 +23,4 @@ class Tokens:
         # "HEXADECIMAL"
     ]
 
-    reserved = {
-        "tr": "TRUE",
-        "fl": "FALSE",
-        "null": "NULO",
-        "TR": "TRUE",
-        "FL": "FALSE",
-        "NULL": "NULO"
-    }
+    reserved = ["TR", "FL", "NULL"]

@@ -28,7 +28,13 @@ from tokens import Tokens
 #     "NUMERO"
 # ]
 
-tokens = Tokens.tokens + list(Tokens.reserved.values())
+tokens = Tokens.tokens + Tokens.reserved
+
+reserved_map = { }
+for r in Tokens.reserved:
+    reserved_map[r.lower()] = r
+    reserved_map[r.upper()] = r
+
 
 t_LLAVE_ABRE = r"\{"
 t_LLAVE_CIERRA = r"\}"
@@ -41,15 +47,27 @@ t_MAYOR_IGUAL = r">="
 t_MENOR_IGUAL = r"<="
 # t_CADENA_NO_COMILLAS = r"[a-zA-Z_][a-zA-Z_0-9]*"
 
+
+# def t_CADENA_NO_COMILLAS(t):
+#     r"[a-zA-Z_][a-zA-Z_0-9]*"
+#     if t.value in Tokens.reserved:
+#         t.type = Tokens.reserved[t.value]
+#         if t.type == "TRUE":
+#             t.value = True
+#         elif t.type == "FALSE":
+#             t.value = False
+#         elif t.type == "NULO":
+#             t.value = None
+#     return t
+
 def t_CADENA_NO_COMILLAS(t):
     r"[a-zA-Z_][a-zA-Z_0-9]*"
-    if t.value in Tokens.reserved:
-        t.type = Tokens.reserved[t.value]
-        if t.type == "TRUE":
-            t.value = True
-        elif t.type == "FALSE":
-            t.value = False
-        elif t.type == "NULO":
+    t.type = reserved_map.get(t.value, "CADENA_NO_COMILLAS")
+    if t.type == "TR":
+        t.value = True
+    elif t.type == "FL":
+        t.value = False
+    elif t.type == "NULL":
             t.value = None
     return t
 
