@@ -14,18 +14,25 @@ def print_salida(result):
         return
     print(f'>> FICHERO AJSON "{sys.argv[1]}" ')
     for key, value in result.items():
-        if isinstance(value, dict):
+        if isinstance(value, dict) or isinstance(value, list):
             _print_salida(value, str(key))
         else:
             print("  { " + key + " : " + str(value) + " }")
 
 def _print_salida(result, origen):
-    for key, value in result.items():
-        if isinstance(value, dict):
-            _print_salida(value, origen + "." + str(key) )
-        else:
-            print("  { " + origen + "." + key + ": " + str(value) + " }")
-    
+    if isinstance(result, dict):
+        for key, value in result.items():
+            if isinstance(value, dict) or isinstance(value, list):
+                _print_salida(value, origen + "." + str(key) )
+            else:
+                print("  { " + origen + "." + key + ": " + str(value) + " }")
+    if isinstance(result, list):
+        for i, item in enumerate(result):
+            if isinstance(item, dict) or isinstance(item, list):
+                _print_salida(item, str(origen) + "." + str(i))
+            else:
+                print("  { " + str(origen) + "." + str(i) + " : " + str(item) + " }")
+
 
 
 # print(content)
