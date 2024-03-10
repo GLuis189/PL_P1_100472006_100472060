@@ -3,31 +3,6 @@
 import ply.lex as lex
 from tokens import Tokens
 
-# tokens = [
-#     "LLAVE_ABRE",
-#     "LLAVE_CIERRA",
-#     "COMA",
-#     "DOS_PUNTOS",
-#     "NUMERO",
-#     "CADENA_COMILLAS",
-#     "CADENA_NO_COMILLAS",
-#     "TRUE",
-#     "FALSE",
-#     "NULO",
-#     "IGUAL",
-#     "MAYOR",
-#     "MENOR",
-#     "MAYOR_IGUAL",
-#     "MENOR_IGUAL",
-#     # "ENTERO",
-#     # "DECIMAL",
-#     # "CIENTIFICO",
-#     # "BINARIO",
-#     # "OCTAL",
-#     # "HEXADECIMAL"
-#     "NUMERO"
-# ]
-
 tokens = Tokens.tokens + Tokens.reserved
 
 reserved_map = { }
@@ -47,20 +22,6 @@ t_MAYOR_IGUAL = r">="
 t_MENOR_IGUAL = r"<="
 t_CORCHETE_ABRE = r"\["
 t_CORCHETE_CIERRA = r"\]"
-# t_CADENA_NO_COMILLAS = r"[a-zA-Z_][a-zA-Z_0-9]*"
-
-
-# def t_CADENA_NO_COMILLAS(t):
-#     r"[a-zA-Z_][a-zA-Z_0-9]*"
-#     if t.value in Tokens.reserved:
-#         t.type = Tokens.reserved[t.value]
-#         if t.type == "TRUE":
-#             t.value = True
-#         elif t.type == "FALSE":
-#             t.value = False
-#         elif t.type == "NULO":
-#             t.value = None
-#     return t
 
 def t_CADENA_NO_COMILLAS(t):
     r"[a-zA-Z_][a-zA-Z_0-9]*"
@@ -77,51 +38,6 @@ def t_CADENA_COMILLAS(t):
     r"\"[^\"]*\""
     t.value = t.value[1:-1]
     return t
-
-# def t_TRUE(t):
-#     r"TR|tr"
-#     t.value = True
-#     return t
-
-# def t_FALSE(t):
-#     r"FL|fl"
-#     t.value = False
-#     return t
-
-# def t_NULO(t):
-#     r"NULL|null"
-#     t.value = None
-#     return t
-
-# def t_BINARIO(t):
-#     r"0(b|B)[01]+"
-#     t.value = int(t.value, 2)
-#     return t
-
-# def t_HEXADECIMAL(t):
-#     r"0(x|X)[0-9a-fA-F]+"
-#     t.value = int(t.value, 16)
-#     return t
-
-# def t_OCTAL(t):
-#     r"0[0-7]+"
-#     t.value = int(t.value, 8)
-#     return t
-
-# def t_CIENTIFICO(t):
-#     r"-?((\d+\.\d+)|(\.\d+)|(\d))[eE]-?\d+"
-#     t.value = float(t.value)
-#     return t
-
-# def t_DECIMAL(t):
-#     r"-?(\d+\.\d+)|(\.\d+)"
-#     t.value = float(t.value)
-#     return t
-
-# def t_ENTERO(t):
-#     r"-?\d+"
-#     t.value = int(t.value)
-#     return t
 
 entero = r"-?\d+"
 decimal = r"-?(\d+\.\d+)|(\.\d+)"
