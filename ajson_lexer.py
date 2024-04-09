@@ -31,7 +31,7 @@ def t_CADENA_NO_COMILLAS(t):
     elif t.type == "FL":
         t.value = False
     elif t.type == "NULL":
-            t.value = None
+        t.value = None
     return t
 
 def t_CADENA_COMILLAS(t):
@@ -41,7 +41,7 @@ def t_CADENA_COMILLAS(t):
 
 entero = r"-?\d+"
 decimal = r"-?(\d+\.\d+)|(\.\d+)"
-cientifico = r"-?((\d+\.\d+)|(\.\d+)|(\d))[eE]-?\d+"
+cientifico = r"-?((\d+\.\d+)|(\.\d+)|(\d+))[eE]-?\d+"
 binario = r"0(b|B)[01]+"
 octal = r"0[0-7]+"
 hexadecimal = r"0(x|X)[0-9a-fA-F]+"
